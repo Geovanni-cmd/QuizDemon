@@ -14,6 +14,8 @@ import '../Componentes/estilos.css'
 const Quiz = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Índice de la pregunta actual
     const [userAnswers, setUserAnswers] = useState([]);
+    const [selectedAnswer, setSelectedAnswer] = useState(null); // Guardar la opción seleccionada
+
 
     const preguntas = [
         {
@@ -89,7 +91,22 @@ const Quiz = () => {
     ];
 
 
-    const handleAnswer = (answer) => {
+    const handleNextQuestion = () => {
+        if (selectedAnswer !== null) {
+            setUserAnswers([...userAnswers, selectedAnswer]);
+            setSelectedAnswer(null); // Resetear opción seleccionada
+
+            if (currentQuestionIndex < preguntas.length - 1) {
+                setCurrentQuestionIndex(currentQuestionIndex + 1);
+            } else {
+                console.log("Quiz terminado");
+                // Aquí podrías evaluar las respuestas
+            }
+        } else {
+            alert("Selecciona una respuesta antes de continuar");
+        }
+    };
+    /*const handleAnswer = (answer) => {
         setUserAnswers([...userAnswers, answer]);
         //Ir a la soiguiente pregunta si no es la ultima
         if (currentQuestionIndex < preguntas.length - 1) {
@@ -99,7 +116,7 @@ const Quiz = () => {
             console.log("Quiz terminado");
 
         }
-    }
+    }*/
 
 
     return (
@@ -117,7 +134,11 @@ const Quiz = () => {
                                     {preguntas[currentQuestionIndex].opciones.map((opcion, index) => (
                                         <div className='columns'>
                                             <div className='column'>
-                                                <button className='button is-primary' key={index} onClick={() => handleAnswer(opcion)}>
+                                                <button
+                                                    key={index}
+                                                    className={selectedAnswer === opcion ? "button is-primary" : "button"}
+                                                    onClick={() => setSelectedAnswer(opcion)}
+                                                >
                                                     {opcion}
                                                 </button>
                                             </div>
@@ -125,6 +146,9 @@ const Quiz = () => {
                                     ))}
                                 </div>
                             </div>
+                            <button className="button is-info mt-4" onClick={handleNextQuestion}>
+                                Siguiente
+                            </button>
                         </div>
 
 
