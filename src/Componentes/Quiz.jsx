@@ -126,9 +126,11 @@ const Quiz = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className=' '>
-                            <div className="column">
-                                <img src={preguntas[currentQuestionIndex].imagen} width='65%' />
+                        <div className='imagen'>
+                            <div className="column img" id=''>
+                                <img src={preguntas[currentQuestionIndex].imagen} width='65%' 
+                                style={{ width: '400px', height: '450px', objectFit: 'cover' }}  />
+                                
                                
                             </div>
                         </div>
