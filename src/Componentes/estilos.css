@@ -1,0 +1,5 @@
+.has-border {
+    border: 5px solid black; /* Agrega el borde */
+    border-radius: 100px; /* Redondear esquinas si es necesario */
+  }
+  

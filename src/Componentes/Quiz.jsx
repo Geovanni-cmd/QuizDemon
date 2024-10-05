@@ -8,6 +8,7 @@ import img_6 from '../Imagenes/Jigoro.png'
 import img_7 from '../Imagenes/Kyogai.png'
 import img_8 from '../Imagenes/Inosuke.png'
 import img_9 from '../Imagenes/Urokodaki.png'
+import '../Componentes/estilos.css'
 
 
 const Quiz = () => {
@@ -103,36 +104,34 @@ const Quiz = () => {
 
     return (
         <div>
-            <div className="box">
+            <div className="bo">
                 <div className='card has-background-white mt-1'>
-
+                    <div className="pregunta card ">
+                        <p className='is-size-4 has-text-primary'>{preguntas[currentQuestionIndex].id} .- {preguntas[currentQuestionIndex].pregunta}                                    </p>
+                    </div>
                     <div className="columns">
-                        <div className="column">
 
-                            <div className="pregunta card">
-                                {preguntas[currentQuestionIndex].id} {preguntas[currentQuestionIndex].pregunta}
-
-                            </div>
-                            <div className='card'>
-                                {preguntas[currentQuestionIndex].opciones.map((opcion, index) => (
-                                    <div className='columns'>
-                                        <div className='column'>
-                                            <button className='button' key={index} onClick={() => handleAnswer(opcion)}>
-                                                {opcion}
-                                            </button>
+                        <div className='card card-custom '>
+                            <div className="column card-content">
+                                <div className='content'>
+                                    {preguntas[currentQuestionIndex].opciones.map((opcion, index) => (
+                                        <div className='columns'>
+                                            <div className='column'>
+                                                <button className='button is-primary' key={index} onClick={() => handleAnswer(opcion)}>
+                                                    {opcion}
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
-
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                        <div className='imagen'>
-                            <div className="column img" id=''>
-                                <img src={preguntas[currentQuestionIndex].imagen} width='65%' 
-                                style={{ width: '400px', height: '450px', objectFit: 'cover' }}  />
-                                
-                               
-                            </div>
+
+
+
+                        <div className="column">
+                            <img src={preguntas[currentQuestionIndex].imagen} class="has-border"
+                                style={{ width: '300px', height: '400px', objectFit: 'cover' }} />
                         </div>
                     </div>
                 </div>
