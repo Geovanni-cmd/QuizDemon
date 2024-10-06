@@ -9,11 +9,12 @@ import img_7 from '../Imagenes/Kyogai.png'
 import img_8 from '../Imagenes/Inosuke.png'
 import img_9 from '../Imagenes/Urokodaki.png'
 import '../Componentes/estilos.css'
+import { Link } from 'react-router-dom';
 
 
 const Quiz = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Índice de la pregunta actual
-    const [userAnswers, setUserAnswers] = useState([]);
+    const [userAnswers, setUserAnswers] = useState([]);  //Array de respuestas del usuario
     const [selectedAnswer, setSelectedAnswer] = useState(null); // Guardar la opción seleccionada
 
 
@@ -92,6 +93,7 @@ const Quiz = () => {
 
 
     const handleNextQuestion = () => {
+        //Se verifica si se a seleccionado una respuesta
         if (selectedAnswer !== null) {
             setUserAnswers([...userAnswers, selectedAnswer]);
             setSelectedAnswer(null); // Resetear opción seleccionada
@@ -99,8 +101,17 @@ const Quiz = () => {
             if (currentQuestionIndex < preguntas.length - 1) {
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
             } else {
-                console.log("Quiz terminado");
+                console.log(currentQuestionIndex);
+                var i;
+                for(i=0; i<=currentQuestionIndex; i++ ){
+                    if(preguntas[i].respuestaCorrecta == userAnswers[i]){
+                        console.log("Respuesta numero "+ i +"\n Es correcta: "+preguntas[i].respuestaCorrecta + " \n Opcion elegida" + userAnswers[i]);
+                    }else{
+                        console.log("Respuesta numero "+ i +"\n Es correcta: "+preguntas[i].respuestaCorrecta + " \n Opcion elegida" + userAnswers[i]);
+                    }
+                }
                 // Aquí podrías evaluar las respuestas
+
             }
         } else {
             alert("Selecciona una respuesta antes de continuar");
@@ -136,7 +147,7 @@ const Quiz = () => {
                                             <div className='column'>
                                                 <button
                                                     key={index}
-                                                    className={selectedAnswer === opcion ? "button is-primary" : "button"}
+                                                    className={selectedAnswer === opcion ? "button is-primary" : "button" /*Se define de que color sera el boton*/}
                                                     onClick={() => setSelectedAnswer(opcion)}
                                                 >
                                                     {opcion}
