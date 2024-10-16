@@ -9,13 +9,15 @@ import img_7 from '../Imagenes/Kyogai.png'
 import img_8 from '../Imagenes/Inosuke.png'
 import img_9 from '../Imagenes/Urokodaki.png'
 import '../Componentes/estilos.css'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const Quiz = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Índice de la pregunta actual
     const [userAnswers, setUserAnswers] = useState([]);  //Array de respuestas del usuario
     const [selectedAnswer, setSelectedAnswer] = useState(null); // Guardar la opción seleccionada
+    const navigate = useNavigate();
+
 
 
     const preguntas = [
@@ -96,22 +98,13 @@ const Quiz = () => {
         //Se verifica si se a seleccionado una respuesta
         if (selectedAnswer !== null) {
             setUserAnswers([...userAnswers, selectedAnswer]);
-            setSelectedAnswer(null); // Resetear opción seleccionada
 
             if (currentQuestionIndex < preguntas.length - 1) {
+                setSelectedAnswer(null); // Resetear opción seleccionada
                 setCurrentQuestionIndex(currentQuestionIndex + 1);
             } else {
-                console.log(currentQuestionIndex);
-                var i;
-                for(i=0; i<=currentQuestionIndex; i++ ){
-                    if(preguntas[i].respuestaCorrecta == userAnswers[i]){
-                        console.log("Respuesta numero "+ i +"\n Es correcta: "+preguntas[i].respuestaCorrecta + " \n Opcion elegida" + userAnswers[i]);
-                    }else{
-                        console.log("Respuesta numero "+ i +"\n Es correcta: "+preguntas[i].respuestaCorrecta + " \n Opcion elegida" + userAnswers[i]);
-                    }
-                }
-                // Aquí podrías evaluar las respuestas
-
+                // Si ya se contestaron todas las preguntas, navegar a la página de resultados
+                navigate('/resultados', { state: { preguntas, userAnswers: [...userAnswers, selectedAnswer] } });
             }
         } else {
             alert("Selecciona una respuesta antes de continuar");
@@ -142,23 +135,23 @@ const Quiz = () => {
                         <div className='card card-custom '>
                             <div className="column card-content">
                                 <div className='content'>
-                                    {preguntas[currentQuestionIndex].opciones.map((opcion, index) => (
+                                    {preguntas[currentQuestionIndex].opciones.map((opc, index) => (
                                         <div className='columns'>
                                             <div className='column'>
                                                 <button
                                                     key={index}
-                                                    className={selectedAnswer === opcion ? "button is-primary" : "button" /*Se define de que color sera el boton*/}
-                                                    onClick={() => setSelectedAnswer(opcion)}
+                                                    className={selectedAnswer === opc ? "button is-primary" : "button" /*Se define de que color sera el button*/}
+                                                    onClick={() => setSelectedAnswer(opc)}
                                                 >
-                                                    {opcion}
+                                                    {opc}
                                                 </button>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
                             </div>
-                            <button className="button is-info mt-4" onClick={handleNextQuestion}>
-                                Siguiente
+                            <button className={currentQuestionIndex != preguntas.length - 1 ? "button is-info mt-4" : "button is-danger mt-4"} onClick={handleNextQuestion}>
+                                {currentQuestionIndex != preguntas.length - 1 ? "Siguiente" : "Finalizar"}
                             </button>
                         </div>
 

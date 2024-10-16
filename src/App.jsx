@@ -1,6 +1,7 @@
 import './App.css'
 import Inicio from './Componentes/inicio'
 import Quiz from './Componentes/Quiz'
+import Resultados from './Componentes/Resultados';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/resultados" element={<Resultados />} />
         </Routes>
       </Router>
     </>
