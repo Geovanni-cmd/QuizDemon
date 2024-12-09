@@ -19,6 +19,8 @@ const Inicio = () => {
                                 El objetivo de la aplicación es evaluar los conocimientos de los usuarios sobre
                                 la serie mediante un cuestionario de 10 preguntas. Al finalizar,
                                 se muestran las respuestas correctas e incorrectas, brindando una retroalimentación completa.
+
+                                
                             </p>
                             <Link to="/quiz">
                                 <button className='button mt-5'> Comenzar Quiz</button>
